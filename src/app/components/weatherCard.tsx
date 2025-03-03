@@ -47,25 +47,23 @@ export default WeatherCard;
 
 import React from "react";
 
-// Definir el tipo de las props que va a recibir el componente
 type WeatherCardProps = {
   place: string;
-  weatherData: any; // Puedes definir un tipo más específico según lo que devuelve la API
+  weatherData: any; 
 };
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ place, weatherData }) => {
-  // Extraemos los datos relevantes de la respuesta de la API
   const location = weatherData?.location?.name;
-  const temperature = weatherData?.current?.temp_c; // Por ejemplo, la temperatura en grados Celsius
-  const condition = weatherData?.current?.condition?.text; // El estado del clima (soleado, nublado, etc.)
-  const icon = weatherData?.current?.condition?.icon; // Icono del clima
+  const temperature = weatherData?.current?.temp_c; 
+  const condition = weatherData?.current?.condition?.text; 
+  const icon = weatherData?.current?.condition?.icon; 
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md max-w-sm mx-auto">
       <h2 className="text-xl font-bold text-gray-700">{place || location}</h2>
       <div className="flex items-center space-x-4">
         <img
-          src={`http:${icon}`} // Usando el icono proporcionado por la API
+          src={`http:${icon}`} 
           alt="Weather Icon"
           className="w-12 h-12"
         />

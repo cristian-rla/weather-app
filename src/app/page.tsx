@@ -55,26 +55,25 @@ import { useState } from "react";
 import WeatherCard from "./components/weatherCard";
 
 export default function Home() {
-  const [formData, setFormData] = useState<string>("");  // Guardar la ciudad actual que se está buscando
-  const [cities, setCities] = useState<{ name: string, weatherData: any }[]>([]);  // Guardar las ciudades y sus datos
+  const [formData, setFormData] = useState<string>("");  
+  const [cities, setCities] = useState<{ name: string, weatherData: any }[]>([]);  
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData) return; // Si el formulario está vacío no hacer nada
+    if (!formData) return; 
 
     setLoading(true);
 
-    // Llamada a la API con el lugar
     fetch(`http://api.weatherapi.com/v1/current.json?key=495dcc2885004d9985521728252702&q=${formData}&aqi=no`)
       .then((response) => response.json())
       .then((data) => {
-        // Agregar la nueva ciudad con sus datos a la lista
+
         setCities((prevCities) => [
           ...prevCities,
           { name: formData, weatherData: data }
         ]);
-        setFormData(""); // Limpiar el campo de texto después de agregar
+        setFormData(""); 
         setLoading(false);
       })
       .catch((error) => {
@@ -96,7 +95,7 @@ export default function Home() {
               id="name"
               name="place"
               value={formData}
-              onChange={(e) => setFormData(e.target.value)} // Actualizamos solo el campo de texto
+              onChange={(e) => setFormData(e.target.value)} 
               className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
             />
             <button
@@ -108,7 +107,6 @@ export default function Home() {
           </div>
         </form>
 
-        {/* Renderizar múltiples tarjetas */}
         {cities.map((city, index) => (
           <WeatherCard key={index} place={city.name} weatherData={city.weatherData} />
         ))}
